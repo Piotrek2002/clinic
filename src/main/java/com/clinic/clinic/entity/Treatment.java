@@ -1,6 +1,7 @@
 package com.clinic.clinic.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Treatment {
@@ -13,6 +14,8 @@ public class Treatment {
     private int id;
     private String name;
     private double price;
+    @OneToMany(mappedBy = "treatment",cascade = CascadeType.REMOVE)
+    private List<Visit> visit;
 
     public int getId() {
         return id;
@@ -36,5 +39,13 @@ public class Treatment {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Visit> getVisit() {
+        return visit;
+    }
+
+    public void setVisit(List<Visit> visit) {
+        this.visit = visit;
     }
 }

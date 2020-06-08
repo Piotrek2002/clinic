@@ -7,6 +7,9 @@ import com.clinic.clinic.services.UserService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,9 +31,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user) {
+    public void saveUser(User user , int enable) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setEnabled(1);
+        user.setEnabled(enable);
         userRepository.save(user);
     }
 
@@ -39,4 +42,16 @@ public class UserServiceImpl implements UserService {
 
         userRepository.delete(userRepository.findUserById(id));
     }
+
+//    @Override
+//    public List<User> findAllByRole(String role) {
+//        List<User> users=userRepository.findAll();
+//        List<User> userList=users.stream()
+//                .filter(u->u.getRoles().stream()
+//                        .filter(r->r.getName().equals(role))
+//                        .findFirst()
+//                        .equals(roleRepository.findByName("role")))
+//                .collect(Collectors.toList());
+//        return userList;
+//    }
 }

@@ -34,20 +34,20 @@
                 </li>
 
                 <sec:authorize access="hasAnyRole('ADMIN','USER')">
-                <li class="nav-item">
-                    <a class="nav-link" href="/patient/list">Pacjenci</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/patient/list">Pacjenci</a>
+                    </li>
                 </sec:authorize>
                 <sec:authorize access="hasAnyRole('ADMIN','USER')">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu1" aria-haspopup="true"> Zabiegi </a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu1" aria-haspopup="true"> Zabiegi </a>
 
-                    <div class="dropdown-menu" aria-labelledby="submenu1">
-                        <a class="dropdown-item" href="/visit/list">Wszystkie</a>
-                        <a class="dropdown-item" href="#">Zaplanowane</a>
-                        <a class="dropdown-item" href="#">Zrealizowane</a>
-                    </div>
-                </li>
+                        <div class="dropdown-menu" aria-labelledby="submenu1">
+                            <a class="dropdown-item" href="/visit/list">Wszystkie</a>
+                            <a class="dropdown-item" href="#">Zaplanowane</a>
+                            <a class="dropdown-item" href="#">Zrealizowane</a>
+                        </div>
+                    </li>
                 </sec:authorize>
                 <sec:authorize access="hasRole('ADMIN')">
                     <li class="nav-item dropdown">
@@ -83,12 +83,6 @@
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
                             <ul class="nav nav-pills" role="tablist">
-                                <li class="active"><a type="button" class="btn form-control btn-outline-secondary active"
-                                                      href="#complete" role="tab"
-                                                      data-toggle="tab">Zaplanowne</a></li>
-                                <li><a type="button" class="btn form-control btn-outline-secondary" href="#tocomplete"
-                                       role="tab"
-                                       data-toggle="tab">Zrealizowne</a></li>
                                 <li><input class="form-control" id="myInput" type="text" placeholder="Search" aria-label="Search"></li>
                             </ul>
 
@@ -111,40 +105,13 @@
                                 </thead>
 
                                 <tbody id="myTable">
-                                <c:forEach items="${visitsToComplete}" var="visits">
+                                <c:forEach items="${visits}" var="visit">
                                     <tr onclick="window.location='#';">
-                                        <td>${visits.id}</td>
-                                        <td>${visits.patientProfile.name}</td>
-                                        <td>${visits.patientProfile.surname}</td>
-                                        <td>${visits.price}</td>
-                                        <td>${visits.date}</td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="tocomplete">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-sm">
-                                <thead>
-                                <tr>
-                                    <th>Numer</th>
-                                    <th>Imię</th>
-                                    <th>Nazwisko</th>
-                                    <th>Cena</th>
-                                    <th>Data</th>
-                                </tr>
-                                </thead>
-
-                                <tbody id="Table">
-                                <c:forEach items="${visitsCompleted}" var="visits">
-                                    <tr onclick="window.location='#';">
-                                        <td>${visits.id}</td>
-                                        <td>${visits.patientProfile.name}</td>
-                                        <td>${visits.patientProfile.surname}</td>
-                                        <td>${visits.price}</td>
-                                        <td>${visits.date}</td>
+                                        <td>${visit.id}</td>
+                                        <td>${visit.patientProfile.name}</td>
+                                        <td>${visit.patientProfile.surname}</td>
+                                        <td>${visit.price}</td>
+                                        <td>${visit.date}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

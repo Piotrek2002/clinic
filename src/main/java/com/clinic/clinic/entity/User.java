@@ -1,6 +1,9 @@
 package com.clinic.clinic.entity;
 
+import org.hibernate.validator.constraints.pl.PESEL;
+
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.Set;
 
@@ -17,20 +20,19 @@ public class User {
     private String username;
     private String password;
     private int enabled;
+    private String name;
+    private String surname;
+    @PESEL
+    private long pesel;
+    private int insurance;
+    private double salary;
+
+    @OneToMany(mappedBy = "patientProfile",cascade = CascadeType.REMOVE)
+    private List<Visit> patientVisits;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-    @OneToOne(mappedBy = "user")
-    private UserProfile userProfile;
-
-    public UserProfile getUserProfile() {
-        return userProfile;
-    }
-
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
-    }
 
     public Long getId() {
         return id;
@@ -72,4 +74,51 @@ public class User {
         this.roles = roles;
     }
 
+    public String getName() {
+        return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public long getPesel() {
+        return pesel;
+    }
+
+    public void setPesel(long pesel) {
+        this.pesel = pesel;
+    }
+
+    public int getInsurance() {
+        return insurance;
+    }
+
+    public void setInsurance(int insurance) {
+        this.insurance = insurance;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public List<Visit> getPatientVisits() {
+        return patientVisits;
+    }
+
+    public void setPatientVisits(List<Visit> patientVisits) {
+        this.patientVisits = patientVisits;
+    }
+}

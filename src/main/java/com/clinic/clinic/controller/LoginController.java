@@ -34,7 +34,7 @@ public class LoginController {
         User user = new User();
         user.setUsername("admin");
         user.setPassword("admin");
-        userService.saveUser(user);
+        userService.saveUser(user,1);
         return "admin";
     }
     @GetMapping("/create-user")
@@ -43,8 +43,8 @@ public class LoginController {
         User user = new User();
         user.setUsername("user");
         user.setPassword("user");
-        userService.saveUser(user);
-        return "admin";
+        userService.saveUser(user,1);
+        return "user";
     }
     @GetMapping("/create-patient")
     @ResponseBody
@@ -52,8 +52,17 @@ public class LoginController {
         User user = new User();
         user.setUsername("patient");
         user.setPassword("patient");
-        userService.saveUser(user);
-        return "admin";
+        userService.saveUser(user,1);
+        return "patient";
+    }
+    @GetMapping("/create-reception")
+    @ResponseBody
+    public String createReception() {
+        User user = new User();
+        user.setUsername("reception");
+        user.setPassword("reception");
+        userService.saveUser(user,1);
+        return "reception";
     }
 
 
