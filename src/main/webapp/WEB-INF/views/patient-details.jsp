@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!doctype html>
 <html lang="pl">
 <head>
@@ -13,6 +14,7 @@
     <!-- Bootstrap core CSS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
@@ -53,10 +55,10 @@
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu2" aria-haspopup="true"> Profil admina </a>
 
                         <div class="dropdown-menu" aria-labelledby="submenu2">
-                            <a class="dropdown-item" href="#">Statystyki</a>
+                            <a class="dropdown-item" href="/user/statistics">Statystyki</a>
                             <a class="dropdown-item" href="/user/list">Pracownicy</a>
                             <a class="dropdown-item" href="/treatment/list">Zabiegi</a>
-                            <a class="dropdown-item" href="#">Sprawozdawczość</a>
+
                         </div>
                     </li>
                 </sec:authorize>
@@ -72,19 +74,82 @@
     <div class="container-fluid">
         <div class="row">
             <main role="main" class="col-12 ml-sm-auto px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">${patient.name} ${patient.surname}</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group mr-2">
+                            <ul class="nav nav-pills" role="tablist">
+                                <c:if test="${patient.enabled==0}">
+                                <li class="pl-5"><a type="button" class="btn form-control btn-outline-secondary" href="/patient/activate/${patient.id}">Aktywuj pacjenta
+                                </a></li></c:if>
+                                <c:if test="${patient.enabled==1}">
+                                    <li class="pl-5"><a type="button" class="btn form-control btn-outline-secondary" href="/patient/deactivate/${patient.id}">Dezaktywuj pacjenta
+                                    </a></li></c:if>
+                                </button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="schedules-content">
+                    <div class="schedules-content-header">
+                        <div class="form-group row mb-2">
+                            <span class="col-sm-3 col-lg-2 label-size col-form-label">
+                                    PESEL
+                            </span>
+                            <div class="col-sm-9 col-lg-10">
+                                <p class="schedules-text">${patient.pesel}</p>
+                            </div>
+                        </div>
+                        <c:if test="${patient.insurance==1}">
+                        <div class="form-group row">
+                            <span class="col-sm-3 col-lg-2 label-size col-form-label">
+                                    Ubezpieczenie
+                                </span>
+                            <div class="col-sm-9 col-lg-10">
+                                <p class="schedules-text">Ubezpieczony</p>
+                            </div>
+                        </div>
+                        </c:if>
+                        <c:if test="${patient.insurance==0}">
+                            <div class="form-group row">
+                            <span class="col-sm-3 col-lg-2 label-size col-form-label">
+                                    Ubezpieczenie
+                                </span>
+                                <div class="col-sm-9 col-lg-10">
+                                    <p class="schedules-text">Nieubezpieczony</p>
+                                </div>
+                            </div>
+                        </c:if>
+                        <c:if test="${patient.enabled==1}">
+                            <div class="form-group row">
+                            <span class="col-sm-3 col-lg-2 label-size col-form-label">
+                                    Status
+                                </span>
+                                <div class="col-sm-9 col-lg-10">
+                                    <p class="schedules-text">Aktywny</p>
+                                </div>
+                            </div>
+                        </c:if>
+                        <c:if test="${patient.enabled==0}">
+                            <div class="form-group row">
+                            <span class="col-sm-3 col-lg-2 label-size col-form-label">
+                                    Status
+                                </span>
+                                <div class="col-sm-9 col-lg-10">
+                                    <p class="schedules-text">Nieaktywny</p>
+                                </div>
+                            </div>
+                        </c:if>
+                    </div>
+                </div>
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3 ">
-                    <h1 class="h2">Klienci</h1>
+                    <h1 class="h2">Lista wizyt</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
                             <ul class="nav nav-pills" role="tablist">
                                 <li class="pr-5"><a type="button" class="btn form-control btn-outline-secondary "
-                                                    href="/patient/add">Dodaj pacjenta</a></li>
-                                <li class="active"><a type="button" class="btn form-control btn-outline-secondary active"
-                                                      href="#all" role="tab"
-                                                      data-toggle="tab" >Wszyscy</a></li>
-                                <li><a type="button" class="btn form-control btn-outline-secondary" href="#approval"
-                                       role="tab"
-                                       data-toggle="tab">Do zatwierdzenia</a></li>
+                                                    href="/visit/add/${patient.id}">Umów nową wizytę</a></li>
                                 <li><input class="form-control" id="myInput" type="text" placeholder="Search" aria-label="Search"></li>
                             </ul>
 
@@ -98,69 +163,21 @@
                             <table class="table table-striped table-sm">
                                 <thead>
                                 <tr>
-                                    <th>Imię</th>
-                                    <th>Nazwisko</th>
-                                    <th>PESEL</th>
-                                    <th>Ubezpieczenie</th>
-                                    <th>Status</th>
+                                    <th>Numer</th>
+                                    <th>Cena</th>
+                                    <th>Data</th>
+                                    <th>Zabieg</th>
+                                    <th>Opis</th>
                                 </tr>
                                 </thead>
                                 <tbody id="myTable">
-                                <c:forEach items="${patients}" var="patient">
-                                    <tr onclick="window.location='/patient/details/${patient.id}';">
-
-                                        <td>${patient.name}</td>
-                                        <td>${patient.surname}</td>
-                                        <td>${patient.pesel}</td>
-                                        <c:if test="${patient.insurance==1}">
-                                            <td>Ubezpieczony</td>
-                                        </c:if>
-                                        <c:if test="${patient.insurance==0}">
-                                            <td>Nie ubezpieczony</td>
-                                        </c:if>
-                                        <c:if test="${patient.enabled==1}">
-                                            <td>Aktywny</td>
-                                        </c:if>
-                                        <c:if test="${patient.enabled==0}">
-                                            <td>Nie aktywny</td>
-                                        </c:if>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="approval">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-sm">
-                                <thead>
-                                <tr>
-                                    <th>Imię</th>
-                                    <th>Nazwisko</th>
-                                    <th>PESEL</th>
-                                    <th>Ubezpieczenie</th>
-                                    <th>Status</th>
-                                </tr>
-                                </thead>
-
-                                <tbody id="Table">
-                                <c:forEach items="${approval}" var="patient">
-                                    <tr onclick="window.location='#';">
-                                        <td>${patient.name}</td>
-                                        <td>${patient.surname}</td>
-                                        <td>${patient.pesel}</td>
-                                        <c:if test="${patient.insurance==1}">
-                                            <td>Ubezpieczony</td>
-                                        </c:if>
-                                        <c:if test="${patient.insurance==0}">
-                                            <td>Nie ubezpieczony</td>
-                                        </c:if>
-                                        <c:if test="${patient.enabled==1}">
-                                            <td>Aktywny</td>
-                                        </c:if>
-                                        <c:if test="${patient.enabled==0}">
-                                            <td>Nie aktywny</td>
-                                        </c:if>
+                                <c:forEach items="${patient.patientVisits}" var="visit">
+                                    <tr onclick="window.location='/visit/details/${visit.id}';">
+                                        <td>${visit.id}</td>
+                                        <td>${visit.price}</td>
+                                        <td>${visit.date}</td>
+                                        <td>${visit.treatment.name}</td>
+                                        <td>${visit.description}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

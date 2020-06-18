@@ -22,4 +22,7 @@ public interface VisitRepository extends JpaRepository<Visit, Integer> {
     @Query("select v from Visit v where v.status=1 and v.userId=?1")
     List<Visit> findAllCompletedByUser(Long id);
 
+    @Query("select v from Visit v where v.id=?1")
+    Visit findVisitById(int id);
+
 }

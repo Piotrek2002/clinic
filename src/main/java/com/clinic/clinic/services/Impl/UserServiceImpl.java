@@ -43,15 +43,9 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(userRepository.findUserById(id));
     }
 
-//    @Override
-//    public List<User> findAllByRole(String role) {
-//        List<User> users=userRepository.findAll();
-//        List<User> userList=users.stream()
-//                .filter(u->u.getRoles().stream()
-//                        .filter(r->r.getName().equals(role))
-//                        .findFirst()
-//                        .equals(roleRepository.findByName("role")))
-//                .collect(Collectors.toList());
-//        return userList;
-//    }
+    @Override
+    public void edit(User user) {
+        userRepository.save(user);
+    }
+
 }

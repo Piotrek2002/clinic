@@ -17,73 +17,49 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 </head>
-<body>
-
+<body class="pt-5">
 <header>
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
-        <a class="navbar-brand mr-5" href="/home">Przychodnia</a>
-
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="/">Przychodnia</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainmenu"
                 aria-controls="mainmenu" aria-expanded="false" aria-label="Przełącznik nawigacji">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="mainmenu">
-
+        <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/home">Pulpit</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/treatments">Start<span class="sr-only">(current)</span></a>
                 </li>
-
-                <sec:authorize access="hasAnyRole('ADMIN','USER')">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/patient/list">Pacjenci</a>
-                    </li>
-                </sec:authorize>
-                <sec:authorize access="hasAnyRole('ADMIN','USER')">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu1" aria-haspopup="true"> Zabiegi </a>
-
-                        <div class="dropdown-menu" aria-labelledby="submenu1">
-                            <a class="dropdown-item" href="/visit/list">Wszystkie</a>
-                            <a class="dropdown-item" href="/visit/listToComplete">Zaplanowane</a>
-                            <a class="dropdown-item" href="/visit/listCompleted">Zrealizowane</a>
-                        </div>
-                    </li>
-                </sec:authorize>
-                <sec:authorize access="hasRole('ADMIN')">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu2" aria-haspopup="true"> Profil admina </a>
-
-                        <div class="dropdown-menu" aria-labelledby="submenu2">
-                            <a class="dropdown-item" href="#">Statystyki</a>
-                            <a class="dropdown-item" href="/user/list">Pracownicy</a>
-                            <a class="dropdown-item" href="/treatment/list">Zabiegi</a>
-                            <a class="dropdown-item" href="#">Sprawozdawczość</a>
-                        </div>
-                    </li>
-                </sec:authorize>
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout">Wyloguj</a>
+                    <a class="nav-link" href="/treatments">Zabiegi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="/login" tabindex="-1" aria-disabled="true">Logowanie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="/registration" tabindex="-1" aria-disabled="true">Rejestracja</a>
                 </li>
             </ul>
-
+            <form class="form-inline mt-2 mt-md-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
         </div>
     </nav>
 </header>
+
 <section>
     <div class="container-fluid">
         <div class="row">
             <main role="main" class="col-12 ml-sm-auto px-md-4">
-                <form:form method="post" modelAttribute="user">
+                <form:form method="post" modelAttribute="patient">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
-                        <h1 class="h2">Dodaj użytkownika</h1>
+                        <h1 class="h2">Rejestracja</h1>
                         <div class="btn-toolbar">
                             <div class="btn-group mr-2">
                                 <ul class="nav nav-pills" role="tablist">
                                     <li>
-                                        <button type="submit" class="btn form-control btn-outline-secondary">Dodaj
-                                            nowego użytkownika
+                                        <button type="submit" class="btn form-control btn-outline-secondary">Zarejestruj się
                                         </button>
                                     </li>
                                 </ul>
@@ -108,17 +84,6 @@
                             <td class="col-10">
                                 <form:input path="password" type="password" class="w-100 p-1"/>
                                 <form:errors path="password" cssClass="errorMessage"/>
-                            </td>
-                        </tr>
-                        <tr class="d-flex pb-2">
-
-                            <th scope="row" class="col-2 w-100 p-1">Role</th>
-                            <td class="col-10">
-                                <c:forEach items="${roles}" var="role">
-                                    ${role.name} <form:checkbox value="${role}" path="roles"/>
-                                </c:forEach>
-
-                                <form:errors path="roles" cssClass="errorMessage"/>
                             </td>
                         </tr>
                         <tr class="d-flex pb-2">
@@ -149,12 +114,15 @@
                             </td>
                         </tr>
                         <tr class="d-flex pb-2">
-                            <form:label path="salary">
-                                <th scope="row" class="col-2">Pensja</th>
+                            <form:label path="insurance">
+                                <th scope="row" class="col-2">Ubezpieczenie</th>
                             </form:label>
                             <td class="col-10">
-                                <form:input path="salary" class="w-100 p-1"/>
-                                <form:errors path="salary" cssClass="errorMessage"/>
+                                <form:select path="insurance">
+                                    <form:option value="1" label="Ubezpieczony"/>
+                                    <form:option value="0" label="Nie ubezpieczony"/>
+                                </form:select>
+                                <form:errors path="insurance" cssClass="errorMessage"/>
                             </td>
                         </tr>
 

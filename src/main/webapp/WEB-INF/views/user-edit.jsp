@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!doctype html>
 <html lang="pl">
 <head>
@@ -10,11 +10,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
-
     <!-- Bootstrap core CSS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
 </head>
 <body>
 
@@ -74,69 +72,89 @@
     <div class="container-fluid">
         <div class="row">
             <main role="main" class="col-12 ml-sm-auto px-md-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3 ">
-                    <h1 class="h2">Użytkownicy</h1>
+                <form:form method="post" modelAttribute="user">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">${user.name} ${user.surname}</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
                             <ul class="nav nav-pills" role="tablist">
-
-                                <li class="pr-5"><a type="button" class="btn form-control btn-outline-secondary" href="/user/add">Dodaj
-                                    nowego użytkownika</a></li>
-                                <li><input class="form-control" id="myInput" type="text" placeholder="Search"
-                                           aria-label="Search"></li>
+                                <li class="pl-5"><a
+                                        class="btn form-control btn-outline-secondary" href="/user/enable/${user.id}" type="button">Wyłącz użytkownika
+                                </a></li>
+                                <li><button type="submit" class="btn form-control btn-outline-secondary">Edytuj użytkowika
+                                </button></li>
                             </ul>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="all">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-sm">
-                                <thead>
-                                <tr>
-                                    <th>Imię</th>
-                                    <th>Nazwisko</th>
-                                    <th>Rola</th>
-                                    <th>Pensja</th>
-                                    <th>Status</th>
-                                </tr>
-                                </thead>
-                                <tbody id="myTable">
-                                <c:forEach items="${users}" var="user">
-                                    <tr onclick="window.location='/user/edit/${user.id}';">
-
-                                        <td>${user.name}</td>
-
-                                        <td>${user.surname}</td>
-
-                                        <td>
-                                            <C:forEach items="${user.roles}" var="role">
-                                                ${role.name}
-                                            </C:forEach>
-                                        </td>
-                                        <td>${user.salary}</td>
-                                        <c:if test="${user.enabled==1}">
-                                            <td>Aktywny</td>
-                                        </c:if>
-                                        <c:if test="${user.enabled==0}">
-                                            <td>Nie aktywny</td>
-                                        </c:if>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
+                <table class="table table-sm">
+                    <tbody>
 
+                    <tr class="d-flex pb-2">
+
+                        <th scope="row" class="col-2 w-100 p-1">Role</th>
+                        <td class="col-10">
+                            <c:forEach items="${roles}" var="role">
+                                ${role.name} <form:checkbox value="${role}" path="roles"/>
+                            </c:forEach>
+
+                            <form:errors path="roles" cssClass="errorMessage"/>
+                        </td>
+                    </tr>
+                    <tr class="d-flex pb-2">
+                        <form:label path="name">
+                            <th scope="row" class="col-2">Imie</th>
+                        </form:label>
+                        <td class="col-10">
+                            <form:input path="name" class="w-100 p-1"/>
+                            <form:errors path="name" cssClass="errorMessage"/>
+                        </td>
+                    </tr>
+                    <tr class="d-flex pb-2">
+                        <form:label path="surname">
+                            <th scope="row" class="col-2">Nazwisko</th>
+                        </form:label>
+                        <td class="col-10">
+                            <form:input path="surname" class="w-100 p-1"/>
+                            <form:errors path="surname" cssClass="errorMessage"/>
+                        </td>
+                    </tr>
+                    <tr class="d-flex pb-2">
+                        <form:label path="pesel">
+                            <th scope="row" class="col-2">Pesel</th>
+                        </form:label>
+                        <td class="col-10">
+                            <form:input path="pesel" class="w-100 p-1"/>
+                            <form:errors path="pesel" cssClass="errorMessage"/>
+                        </td>
+                    </tr>
+                    <tr class="d-flex pb-2">
+                        <form:label path="salary">
+                            <th scope="row" class="col-2">Pensja</th>
+                        </form:label>
+                        <td class="col-10">
+                            <form:input path="salary" class="w-100 p-1"/>
+                            <form:errors path="salary" cssClass="errorMessage"/>
+                        </td>
+                    </tr>
+                        <form:label path="username">
+                        </form:label>
+                            <form:input path="username" type="hidden" class="w-100 p-1"/>
+                            <form:errors path="username" cssClass="errorMessage"/>
+                        <form:label path="password">
+                        </form:label>
+                            <form:input path="password" type="hidden" class="w-100 p-1"/>
+                            <form:errors path="password" cssClass="errorMessage"/>
+
+                    </tbody>
+                </table>
+                </form:form>
             </main>
         </div>
     </div>
 </section>
 <%@include file="scripts.jsp" %>
-<script src="http://localhost:8080/dashboard.js"></script>
+<script src="/dashboard.js"></script>
 </body>
 
 </html>

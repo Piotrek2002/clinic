@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
-
     <!-- Bootstrap core CSS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 
 </head>
 <body>
@@ -62,7 +62,7 @@
                     </li>
                 </sec:authorize>
                 <li class="nav-item">
-                        <a class="nav-link" href="/logout">Wyloguj</a>
+                    <a class="nav-link" href="/logout">Wyloguj</a>
                 </li>
             </ul>
 
@@ -73,56 +73,71 @@
     <div class="container-fluid">
         <div class="row">
             <main role="main" class="col-12 ml-sm-auto px-md-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3 ">
-                    <h1 class="h2">Zabiegi</h1>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">${visit.patientProfile.name} ${visit.patientProfile.surname}</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
                             <ul class="nav nav-pills" role="tablist">
-                                <li><input class="form-control" id="myInput" type="text" placeholder="Search" aria-label="Search"></li>
+
                             </ul>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="complete">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-sm">
-                                <thead>
-                                <tr>
-                                    <th>Numer</th>
-                                    <th>Imię</th>
-                                    <th>Nazwisko</th>
-                                    <th>Cena</th>
-                                    <th>Data</th>
-                                </tr>
-                                </thead>
-
-                                <tbody id="myTable">
-                                <c:forEach items="${visits}" var="visit">
-                                    <tr onclick="window.location='/visit/details/${visit.id}';">
-                                        <td>${visit.id}</td>
-                                        <td>${visit.patientProfile.name}</td>
-                                        <td>${visit.patientProfile.surname}</td>
-                                        <td>${visit.price}</td>
-                                        <td>${visit.date}</td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
 
+                <div class="schedules-content">
+                    <div class="schedules-content-header">
+                        <div class="form-group row mb-2">
+                            <span class="col-sm-3 col-lg-2 label-size col-form-label">
+                                    Pacjent
+                            </span>
+                            <div class="col-sm-9 col-lg-10">
+                                <p class="schedules-text">${visit.patientProfile.name} ${visit.patientProfile.surname}</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-sm-3 col-lg-2 label-size col-form-label">
+                                    Lekarz
+                                </span>
+                            <div class="col-sm-9 col-lg-10">
+                                <p class="schedules-text">${user.name} ${user.surname}</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-sm-3 col-lg-2 label-size col-form-label">
+                                    Data
+                            </span>
+                            <div class="col-sm-9 col-lg-10">
+                                <p class="schedules-text">
+                                    ${visit.date}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-sm-3 col-lg-2 label-size col-form-label">
+                                    Cena
+                            </span>
+                            <div class="col-sm-9 col-lg-10">
+                                <p class="schedules-text">
+                                    ${visit.price}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <span class="col-sm-3 col-lg-2 label-size col-form-label">
+                                   Opis wizyty
+                            </span>
+                            <div class="col-sm-9 col-lg-10">
+                                <p class="schedules-text">${visit.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>
 </section>
-<%@include file="scripts.jsp"%>
-<script src="http://localhost:8080/dashboard.js">
-
-</script>
+<%@include file="scripts.jsp" %>
+<script src="http://localhost:8080/dashboard.js"></script>
 </body>
 
 </html>

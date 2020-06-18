@@ -15,6 +15,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findUserById(Long id);
     @Query("select u from User u where u.enabled=0")
     List<User> findAllToApprove();
+    @Query("select u from User u where u.salary>0")
+    List<User> findAllUser();
 
 
 }

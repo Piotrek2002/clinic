@@ -1,6 +1,7 @@
 package com.clinic.clinic.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -8,10 +9,10 @@ import java.util.List;
 public class Visit {
     @Id
 //    MySQL
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    Oracle
-//    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "visit_Sequence")
-//    @SequenceGenerator(name = "visit_Sequence", sequenceName = "ROLE_SEQ")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "visit_Sequence")
+    @SequenceGenerator(name = "visit_Sequence", sequenceName = "ROLE_SEQ")
     private int id;
 
 
@@ -30,7 +31,16 @@ public class Visit {
     private int status;
     private double price;
     private LocalDateTime date;
+    @Column(length = 1000)
+    private String description;
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public int getId() {
         return id;

@@ -20,6 +20,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/home/**").hasAnyRole("ADMIN","USER","PATIENT")
                 .antMatchers("/user/**").hasRole("ADMIN")
+                .antMatchers("/treatment/**").hasRole("ADMIN")
+                .antMatchers("/visit/**").hasAnyRole("ADMIN","USER")
+                .antMatchers("/patient/**").hasAnyRole("ADMIN","USER")
+
                 .and().formLogin().loginPage("/login")
                 .defaultSuccessUrl("/home")
                 .and().logout().logoutSuccessUrl("/login")

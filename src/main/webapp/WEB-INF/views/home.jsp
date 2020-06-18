@@ -44,8 +44,8 @@
 
                     <div class="dropdown-menu" aria-labelledby="submenu1">
                         <a class="dropdown-item" href="/visit/list">Wszystkie</a>
-                        <a class="dropdown-item" href="#">Zaplanowane</a>
-                        <a class="dropdown-item" href="#">Zrealizowane</a>
+                        <a class="dropdown-item" href="/visit/listToComplete">Zaplanowane</a>
+                        <a class="dropdown-item" href="/visit/listCompleted">Zrealizowane</a>
                     </div>
                 </li>
                 </sec:authorize>
@@ -56,18 +56,13 @@
                         <div class="dropdown-menu" aria-labelledby="submenu2">
                             <a class="dropdown-item" href="#">Statystyki</a>
                             <a class="dropdown-item" href="/user/list">Pracownicy</a>
-                            <a class="dropdown-item" href="#">Zabiegi</a>
+                            <a class="dropdown-item" href="/treatment/list">Zabiegi</a>
                             <a class="dropdown-item" href="#">Sprawozdawczość</a>
                         </div>
                     </li>
                 </sec:authorize>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu3" aria-haspopup="true"> Użytkownik </a>
-
-                    <div class="dropdown-menu" aria-labelledby="submenu2">
-                        <a class="dropdown-item" href="/logout">Wyloguj</a>
-                        <a class="dropdown-item" href="#">Aktualizuj dane</a>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Wyloguj</a>
                 </li>
             </ul>
 
@@ -112,7 +107,7 @@
 
                                 <tbody id="myTable">
                                 <c:forEach items="${visitsToComplete}" var="visits">
-                                    <tr onclick="window.location='#';">
+                                    <tr onclick="window.location='/visit/details/home/${visits.id}';">
                                         <td>${visits.id}</td>
                                         <td>${visits.patientProfile.name}</td>
                                         <td>${visits.patientProfile.surname}</td>
@@ -139,7 +134,7 @@
 
                                 <tbody id="Table">
                                 <c:forEach items="${visitsCompleted}" var="visits">
-                                    <tr onclick="window.location='#';">
+                                    <tr onclick="window.location='/visit/details/home/${visits.id}';">
                                         <td>${visits.id}</td>
                                         <td>${visits.patientProfile.name}</td>
                                         <td>${visits.patientProfile.surname}</td>
@@ -158,7 +153,7 @@
     </div>
 </section>
 <%@include file="scripts.jsp"%>
-<script src="dashboard.js">
+<script src="http://localhost:8080/dashboard.js">
 
 </script>
 </body>

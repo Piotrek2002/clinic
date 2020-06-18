@@ -6,10 +6,10 @@ import javax.persistence.*;
 public class Role {
     @Id
 //    MySQL
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    Oracle
-//    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "role_Sequence")
-//    @SequenceGenerator(name = "role_Sequence", sequenceName = "ROLE_SEQ")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "role_Sequence")
+    @SequenceGenerator(name = "role_Sequence", sequenceName = "ROLE_SEQ")
     private int id;
     private String name;
 

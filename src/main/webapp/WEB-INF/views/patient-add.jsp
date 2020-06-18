@@ -75,15 +75,15 @@
     <div class="container-fluid">
         <div class="row">
             <main role="main" class="col-12 ml-sm-auto px-md-4">
-                <form:form method="post" modelAttribute="user">
+                <form:form method="post" modelAttribute="patient">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
-                        <h1 class="h2">Dodaj użytkownika</h1>
+                        <h1 class="h2">Dodaj pacjenta</h1>
                         <div class="btn-toolbar">
                             <div class="btn-group mr-2">
                                 <ul class="nav nav-pills" role="tablist">
                                     <li>
                                         <button type="submit" class="btn form-control btn-outline-secondary">Dodaj
-                                            nowego użytkownika
+                                            nowego pacjenta
                                         </button>
                                     </li>
                                 </ul>
@@ -108,17 +108,6 @@
                             <td class="col-10">
                                 <form:input path="password" type="password" class="w-100 p-1"/>
                                 <form:errors path="password" cssClass="errorMessage"/>
-                            </td>
-                        </tr>
-                        <tr class="d-flex pb-2">
-
-                            <th scope="row" class="col-2 w-100 p-1">Role</th>
-                            <td class="col-10">
-                                <c:forEach items="${roles}" var="role">
-                                    ${role.name} <form:checkbox value="${role}" path="roles"/>
-                                </c:forEach>
-
-                                <form:errors path="roles" cssClass="errorMessage"/>
                             </td>
                         </tr>
                         <tr class="d-flex pb-2">
@@ -149,12 +138,15 @@
                             </td>
                         </tr>
                         <tr class="d-flex pb-2">
-                            <form:label path="salary">
-                                <th scope="row" class="col-2">Pensja</th>
+                            <form:label path="insurance">
+                                <th scope="row" class="col-2">Ubezpieczenie</th>
                             </form:label>
                             <td class="col-10">
-                                <form:input path="salary" class="w-100 p-1"/>
-                                <form:errors path="salary" cssClass="errorMessage"/>
+                                <form:select path="insurance">
+                                    <form:option value="1" label="Ubezpieczony"/>
+                                    <form:option value="0" label="Nie ubezpieczony"/>
+                                </form:select>
+                                <form:errors path="insurance" cssClass="errorMessage"/>
                             </td>
                         </tr>
 

@@ -11,10 +11,10 @@ import java.util.Set;
 public class User {
     @Id
 //    MySQL
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    Oracle
-//    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "user_Sequence")
-//    @SequenceGenerator(name = "user_Sequence", sequenceName = "USER_SEQ")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "user_Sequence")
+    @SequenceGenerator(name = "user_Sequence", sequenceName = "USER_SEQ")
     private Long id;
     @Column(nullable = false, unique = true, length = 60)
     private String username;
@@ -22,7 +22,6 @@ public class User {
     private int enabled;
     private String name;
     private String surname;
-    @PESEL
     private long pesel;
     private int insurance;
     private double salary;

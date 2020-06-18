@@ -55,15 +55,7 @@ public class LoginController {
         userService.saveUser(user,1);
         return "patient";
     }
-    @GetMapping("/create-reception")
-    @ResponseBody
-    public String createReception() {
-        User user = new User();
-        user.setUsername("reception");
-        user.setPassword("reception");
-        userService.saveUser(user,1);
-        return "reception";
-    }
+
 
 
 

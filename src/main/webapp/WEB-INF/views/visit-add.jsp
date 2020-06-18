@@ -1,6 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!doctype html>
 <html lang="pl">
 <head>
@@ -40,7 +42,8 @@
                 </sec:authorize>
                 <sec:authorize access="hasAnyRole('ADMIN','USER')">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu1" aria-haspopup="true"> Zabiegi </a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
+                           id="submenu1" aria-haspopup="true"> Zabiegi </a>
 
                         <div class="dropdown-menu" aria-labelledby="submenu1">
                             <a class="dropdown-item" href="/visit/list">Wszystkie</a>
@@ -51,7 +54,8 @@
                 </sec:authorize>
                 <sec:authorize access="hasRole('ADMIN')">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" id="submenu2" aria-haspopup="true"> Profil admina </a>
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
+                           id="submenu2" aria-haspopup="true"> Profil admina </a>
 
                         <div class="dropdown-menu" aria-labelledby="submenu2">
                             <a class="dropdown-item" href="#">Statystyki</a>
@@ -62,7 +66,7 @@
                     </li>
                 </sec:authorize>
                 <li class="nav-item">
-                        <a class="nav-link" href="/logout">Wyloguj</a>
+                    <a class="nav-link" href="/logout">Wyloguj</a>
                 </li>
             </ul>
 
@@ -73,56 +77,60 @@
     <div class="container-fluid">
         <div class="row">
             <main role="main" class="col-12 ml-sm-auto px-md-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3 ">
-                    <h1 class="h2">Zabiegi</h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                        <div class="btn-group mr-2">
-                            <ul class="nav nav-pills" role="tablist">
-                                <li><input class="form-control" id="myInput" type="text" placeholder="Search" aria-label="Search"></li>
-                            </ul>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="complete">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-sm">
-                                <thead>
-                                <tr>
-                                    <th>Numer</th>
-                                    <th>Imię</th>
-                                    <th>Nazwisko</th>
-                                    <th>Cena</th>
-                                    <th>Data</th>
-                                </tr>
-                                </thead>
-
-                                <tbody id="myTable">
-                                <c:forEach items="${visits}" var="visit">
-                                    <tr onclick="window.location='/visit/details/${visit.id}';">
-                                        <td>${visit.id}</td>
-                                        <td>${visit.patientProfile.name}</td>
-                                        <td>${visit.patientProfile.surname}</td>
-                                        <td>${visit.price}</td>
-                                        <td>${visit.date}</td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
+                <form:form method="post" modelAttribute="visit">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3">
+                        <h1 class="h2">Umów wizyte</h1>
+                        <div class="btn-toolbar">
+                            <div class="btn-group mr-2">
+                                <ul class="nav nav-pills" role="tablist">
+                                    <li>
+                                        <button type="submit" class="btn form-control btn-outline-secondary">
+                                            Umów nową wizyte
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <table class="table table-sm">
+                        <tbody>
+                        <tr class="d-flex pb-2">
+
+                            <th scope="row" class="col-2">Data</th>
+                            <td class="col-10">
+                                <input name="localDate" type="datetime-local" class="w-100 p-1"/>
+                            </td>
+                        </tr>
+                        <tr class="d-flex pb-2">
+
+                            <th scope="row" class="col-2 w-100 p-1">Role</th>
+                            <td class="col-10">
+                                <form:select items="${treatments}" path="treatment" class="w-100 p-1"
+                                             itemLabel="name" itemValue="id"/>
+                                <form:errors path="treatment" cssClass="errorMessage"/>
+                            </td>
+                        </tr>
+                        <tr class="d-flex pb-2">
+                            <form:label path="description">
+                                <th scope="row" class="col-2">Opis</th>
+                            </form:label>
+                            <td class="col-10">
+                                <form:input path="description" class="w-100 p-1"/>
+                                <form:errors path="description" cssClass="errorMessage"/>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                </form:form>
 
             </main>
         </div>
     </div>
 </section>
-<%@include file="scripts.jsp"%>
-<script src="http://localhost:8080/dashboard.js">
-
-</script>
+<%@include file="scripts.jsp" %>
+<script src="dashboard.js"></script>
 </body>
 
 </html>
