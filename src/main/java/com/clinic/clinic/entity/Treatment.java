@@ -8,10 +8,10 @@ import java.util.List;
 public class Treatment {
     @Id
 //    MySQL
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    Oracle
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "treatment_Sequence")
-    @SequenceGenerator(name = "treatment_Sequence", sequenceName = "TREATMENT_SEQ")
+//    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "treatment_Sequence")
+//    @SequenceGenerator(name = "treatment_Sequence", sequenceName = "TREATMENT_SEQ")
     private int id;
     private String name;
     private double price;

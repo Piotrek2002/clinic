@@ -1,19 +1,18 @@
 #Użytkownicy
-INSERT INTO clinic.user (id, enabled, insurance, name, password, pesel, salary, surname, username) VALUES (1, 1, 1, 'Jan', '$2a$10$mTSMCcYGM0U1fFTmmcdh.exWKKdmdgGs9FZKT6VzzxZo7WWZ7pKTO', 11111111111, 4000, 'Kowalski', 'user');
-INSERT INTO clinic.user (id, enabled, insurance, name, password, pesel, salary, surname, username) VALUES (2, 1, 1, 'Mikołaj', '$2a$10$Cjs/kLdyMCuT4JdJo0OibuBJqCkfQCRpZ7vILBRKPRMuv8ywPXbeW', 22222222222, 2000, 'Kabała', 'admin');
-INSERT INTO clinic.user (id, enabled, insurance, name, password, pesel, salary, surname, username) VALUES (3, 1, 0, 'Piotr', '$2a$10$2xNq8R3iwaEQVg.1RAqwbuK1Tfq7jfuxM5CAey1zTJEdDLihRV7Lm', 33333333333, 0, 'Krzyszowski', 'patient');
-INSERT INTO clinic.user (id, enabled, insurance, name, password, pesel, salary, surname, username) VALUES (8, 1, 1, 'Patryk', '$2a$10$mEJ1Fe8Ny5J9YzLfpyT74OSI2nkIghuCxnMd93Ynb9wB5.y75nBZq', 11111111111, 0, 'Półtorak', 'Patryk');
-
+INSERT INTO clinic.user (id, enabled, insurance, name, password, pesel, salary, surname, username) VALUES (1, 1, 1, 'Piotr', '$2a$10$vg0p9najdPldbRx0sOGT5O57F.2xs1ojxtNuuu3iUklwi1wMPUWeS', 11111111111, 0, 'Krzyszowski', 'Piotr');
+INSERT INTO clinic.user (id, enabled, insurance, name, password, pesel, salary, surname, username) VALUES (2, 0, 1, 'Jacek', '$2a$10$ODkntb3POAY3hGZpn1Z/KurZue9cHhNq6qiGcI9j.2VIg9auxZ8sm', 222222222, 0, 'Kowalski', 'Jacek');
+INSERT INTO clinic.user (id, enabled, insurance, name, password, pesel, salary, surname, username) VALUES (3, 0, 1, 'Dominik', '$2a$10$i3Asa8P6MfF9qZmMQtjiHOlZ63xl/PSeYewX/lKyPVUxjRviBDKni', 333333333, 0, 'Molenda', 'Dominik');
+INSERT INTO clinic.user (id, enabled, insurance, name, password, pesel, salary, surname, username) VALUES (4, 0, 1, 'Admin', '$2a$10$H/6Cn/HUes/zgqpU8Vg5yuKrgRlNnpJFc/tT3nLPn4pLtfiLXn/Xa', 444444444, 0, 'Admin', 'Admin');
 #Role
 INSERT INTO clinic.role (id, name) VALUES (1, 'ROLE_ADMIN');
 INSERT INTO clinic.role (id, name) VALUES (2, 'ROLE_USER');
 INSERT INTO clinic.role (id, name) VALUES (3, 'ROLE_PATIENT');
 
 #Role dla użytkowników
-INSERT INTO clinic.user_role (user_id, role_id) VALUES (2, 1);
-INSERT INTO clinic.user_role (user_id, role_id) VALUES (1, 2);
-INSERT INTO clinic.user_role (user_id, role_id) VALUES (3, 3);
-INSERT INTO clinic.user_role (user_id, role_id) VALUES (4, 3);
+INSERT INTO clinic.user_role (user_id, role_id) VALUES (2, 3);
+INSERT INTO clinic.user_role (user_id, role_id) VALUES (1, 3);
+INSERT INTO clinic.user_role (user_id, role_id) VALUES (3, 2);
+INSERT INTO clinic.user_role (user_id, role_id) VALUES (4, 1);
 
 #Zabiegi
 INSERT INTO clinic.treatment (id, description, name, price, enable) VALUES (1, 'Elektrokardiografia - to badanie wykorzystywane w celu diagnostyki chorób serca. Dla Pacjenta jest ono bezbolesne i nieinwazyjne, Lekarzowi dostarcza cennych informacji na temat funkcjonowania mięśnia sercowego.', 'EKG', 100, 1);
@@ -30,10 +29,10 @@ INSERT INTO clinic.treatment (id, description, name, price, enable) VALUES (7, '
 ', 'Inhalacje', 45, 1);
 
 #Wizyty
-INSERT INTO clinic.visit (id, date, description, price, status, user_id, patient_profile_id, treatment_id) VALUES (6, '2018-06-12 10:30:00', 'Kilka minut przed planowanym EKG, najlepiej usiąść i starać się zrelaksować. W dzień badania nie można pić kawy, alkoholu i palić papierosów, ponieważ przyspieszają rytm serca. Nie są również polecane zimne napoje spożywane bezpośrednio przed badaniem.', 100, 1, 1, 3, 1);
-INSERT INTO clinic.visit (id, date, description, price, status, user_id, patient_profile_id, treatment_id) VALUES (8, '2020-06-17 09:30:00', 'Przed każdym szczepieniem, Pacjent musi być zbadany przez odpowiedniego lekarza. Dokonuje się również kwalifikacji Pacjenta. To procedura medyczna, polegająca na określeniu wskazań i przeciwskazań.', 70, 1, 2, 3, 2);
-INSERT INTO clinic.visit (id, date, description, price, status, user_id, patient_profile_id, treatment_id) VALUES (9, '2021-01-17 13:45:00', 'Nie należy mierzyć ciśnienia krwi bezpośrednio po dużym posiłku. Nie można pić kawy i palić papierosów co najmniej 30 minut przed pomiarem. Wskazany jest kilkuminutowy odpoczynek w pozycji siedzącej. Ciśnienie krwi należy mierzyć w normalnej temperaturze ciała. Jeśli organizm jest wyziębiony lub rozgrzany, warto chwilę odczekać. Pomiar powinien być dokonany w lewej ręce. Kończyna górna powinna być obnażona, bez uciskającej odzieży, biżuterii i zegarka.', 20, 0, 2, 3, 3);
-INSERT INTO clinic.visit (id, date, description, price, status, user_id, patient_profile_id, treatment_id) VALUES (10, '2020-07-12 08:00:00', 'Przed zdjęciem szwów należy pamiętać, aby ubrania nie uciskały miejsca rany, by miejsce było łatwo dostępne. Od założenia szwów do zdjęcia, ograniczyć wysiłek fizyczny wskazanej kończyny. Zachować ostrożność podczas toalety, aby nie zamoczyć rany.', 70, 0, 1, 3, 4);
-INSERT INTO clinic.visit (id, date, description, price, status, user_id, patient_profile_id, treatment_id) VALUES (11, '2020-06-24 13:00:00', 'Dostosować ubranie tak, aby miejsce opatrunku było łatwodostepne. Nie nadwyrężać miejsca, w którym jest naruszenie ciągłości tkanki. Starać zachować higienę wokół rany.', 0, 0, 1, 4, 5);
-INSERT INTO clinic.visit (id, date, description, price, status, user_id, patient_profile_id, treatment_id) VALUES (12, '2020-07-01 11:45:00', 'Pacjent na 10 godzin przed musi być na czczo. Pić dużo wody niegazowanej, aby żyły były nawodnione. Nie przyjmować żadnych leków przed pobraniem krwi. Ograniczyć wysiłek fizyczny. Pokarmy dzień przed muszą być lekkostrawne.', 0, 0, 2, 4, 6);
-INSERT INTO clinic.visit (id, date, description, price, status, user_id, patient_profile_id, treatment_id) VALUES (13, '2020-06-22 07:00:00', 'Usiąść w bliskiej odległości od inhalatora, odprężyć się, oddech wyrównać, uspokoić. Przed inhalacją zabronione jest palenie papierosów, aby drzewo oskrzelowe było odpowiednio przygotowane.', 0, 0, 1, 4, 7);
+INSERT INTO clinic.visit (id, date, description, price, status, user_id, patient_profile_id, treatment_id) VALUES (1, '2018-06-12 10:30:00', 'Kilka minut przed planowanym EKG, najlepiej usiąść i starać się zrelaksować. W dzień badania nie można pić kawy, alkoholu i palić papierosów, ponieważ przyspieszają rytm serca. Nie są również polecane zimne napoje spożywane bezpośrednio przed badaniem.', 100, 1, 3, 1, 1);
+INSERT INTO clinic.visit (id, date, description, price, status, user_id, patient_profile_id, treatment_id) VALUES (2, '2020-06-17 09:30:00', 'Przed każdym szczepieniem, Pacjent musi być zbadany przez odpowiedniego lekarza. Dokonuje się również kwalifikacji Pacjenta. To procedura medyczna, polegająca na określeniu wskazań i przeciwskazań.', 70, 1, 3, 1, 2);
+INSERT INTO clinic.visit (id, date, description, price, status, user_id, patient_profile_id, treatment_id) VALUES (3, '2021-01-17 13:45:00', 'Nie należy mierzyć ciśnienia krwi bezpośrednio po dużym posiłku. Nie można pić kawy i palić papierosów co najmniej 30 minut przed pomiarem. Wskazany jest kilkuminutowy odpoczynek w pozycji siedzącej. Ciśnienie krwi należy mierzyć w normalnej temperaturze ciała. Jeśli organizm jest wyziębiony lub rozgrzany, warto chwilę odczekać. Pomiar powinien być dokonany w lewej ręce. Kończyna górna powinna być obnażona, bez uciskającej odzieży, biżuterii i zegarka.', 20, 0, 3, 1, 3);
+INSERT INTO clinic.visit (id, date, description, price, status, user_id, patient_profile_id, treatment_id) VALUES (4, '2020-07-12 08:00:00', 'Przed zdjęciem szwów należy pamiętać, aby ubrania nie uciskały miejsca rany, by miejsce było łatwo dostępne. Od założenia szwów do zdjęcia, ograniczyć wysiłek fizyczny wskazanej kończyny. Zachować ostrożność podczas toalety, aby nie zamoczyć rany.', 70, 0, 1, 2, 4);
+INSERT INTO clinic.visit (id, date, description, price, status, user_id, patient_profile_id, treatment_id) VALUES (5, '2020-06-24 13:00:00', 'Dostosować ubranie tak, aby miejsce opatrunku było łatwodostepne. Nie nadwyrężać miejsca, w którym jest naruszenie ciągłości tkanki. Starać zachować higienę wokół rany.', 0, 0, 3, 2, 5);
+INSERT INTO clinic.visit (id, date, description, price, status, user_id, patient_profile_id, treatment_id) VALUES (6, '2020-07-01 11:45:00', 'Pacjent na 10 godzin przed musi być na czczo. Pić dużo wody niegazowanej, aby żyły były nawodnione. Nie przyjmować żadnych leków przed pobraniem krwi. Ograniczyć wysiłek fizyczny. Pokarmy dzień przed muszą być lekkostrawne.', 0, 0, 3, 2, 6);
+INSERT INTO clinic.visit (id, date, description, price, status, user_id, patient_profile_id, treatment_id) VALUES (7, '2020-06-22 07:00:00', 'Usiąść w bliskiej odległości od inhalatora, odprężyć się, oddech wyrównać, uspokoić. Przed inhalacją zabronione jest palenie papierosów, aby drzewo oskrzelowe było odpowiednio przygotowane.', 0, 0, 3, 2, 7);
